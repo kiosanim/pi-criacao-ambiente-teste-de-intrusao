@@ -1,0 +1,20 @@
+# Access Token do usuário no linode
+shared_token =
+# Senha de root dos servidores
+shared_root_pass =
+shared_region =
+shared_private_ip =
+
+#=================================================>
+# Servidor ubuntu com algumas ferramentas do kali
+kali_tags = []
+kali_label = 
+kali_image = "linode/ubuntu20.04"
+kali_type = "g6-standard-4"
+
+#=================================================>
+# Servidor alvo
+centos_tags = []
+centos_label = ""
+centos_image = "linode/centos7"
+centos_type = "g6-standard-1"

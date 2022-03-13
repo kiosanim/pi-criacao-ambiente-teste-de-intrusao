@@ -1,0 +1,115 @@
+# Autor: Fábio Sartori
+# Copyright: 20220311
+
+- hosts: kalipi
+  become: yes
+  tasks:
+    - name: Alterando o hostname para kalipi
+      hostname:
+        name: kalipi
+      become: yes
+    
+    - name: Criar o usuário azureuser
+      user:
+        name: azureuser
+        # Password ===> Senacsenac22
+        password: "$6$CODYrF27OsC$zCdHTZFuKCO4zQzZl7HbaAHMeRaKZM6R9tPKKasLoE0ttLS5nWBouy2P3BjGMs57t4A1BmBWXVCkE3ulu/ZSb0"
+        groups:
+          - sudo
+        state: present
+        shell: /bin/bash
+        system: no
+        createhome: yes
+        home: /home/azureuser
+
+    - name: Instalar Ambiente Gráfico
+      apt:
+        name: ["xubuntu-core"]
+        state: latest
+        update_cache: yes
+      become: yes
+    
+    - name: Instalar X2GO Server
+      apt:
+        name: ["x2goserver", "x2goserver-xsession"]
+        state: latest
+        update_cache: yes
+      become: yes
+    
+    - name: Fazer download do Framework Metasploit
+      get_url:
+        url: "http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run"
+        dest: "/home/azureuser/metasploit-latest-linux-x64-installer.run"
+        mode: 0700
+        owner: azureuser
+        group: azureuser
+      become: yes
+      
+    - name: Copiando /pi para o kali
+      copy:
+        src: pi
+        dest: /
+        owner: azureuser
+        group: azureuser
+        mode: "0777"
+      become: yes
+
+#===========================================>
+
+- hosts: centospi
+  become: yes
+  tasks:
+    - name: Alterando o hostname para centospi
+      hostname:
+        name: centospi
+      become: yes
+
+    - name: Criar o usuário azureuser
+      user:
+        name: azureuser
+        # Password ===> Senacsenac22
+        password: "$6$CODYrF27OsC$zCdHTZFuKCO4zQzZl7HbaAHMeRaKZM6R9tPKKasLoE0ttLS5nWBouy2P3BjGMs57t4A1BmBWXVCkE3ulu/ZSb0"
+        groups:
+          - wheel
+        state: present
+        shell: /bin/bash
+        system: no
+        createhome: yes
+        home: /home/azureuser
+
+
+    - name: Criando o usuário fulano
+      user:
+        name: fulano
+        password: "$6$O7EJj.vGJT05e9$FmiEqiliIJVXlhanFLdGrvjkEXc44xPR4r.h05VRR5raqrne3o30AK6HjQ0NUgMPiT4yiSut9CDWHMXUsAEZv0"
+        state: present
+        shell: /bin/bash
+        system: no
+        createhome: yes
+        home: /home/fulano
+      become: yes
+
+    - name: Criando o usuário beltrano
+      user:
+        name: beltrano
+        password: "$6$LZVQZOHJA25$.wAxVdTaOm0UZetIh3w9SADHRsQ6DPh66uQaljlXF6ps598h.rNFvkf1gL7d9CWG6Py9cqztQovqwRUIZS92h1"
+        state: present
+        shell: /bin/bash
+        system: no
+        createhome: yes
+        home: /home/beltrano
+      become: yes
+
+    - name: Trocando a senha do root
+      user:
+        name: root
+        password: "$6$AjOjQTNvOCD7$AVLR/vHzSjLudXf80n20up1ZE2uHDQ826Pbi0gxhn6xoOg0CNz461m44uSsgoqeZbw7WcvXbzF99GHFvXZ8Me."
+        state: present
+      become: yes
+
+    - name: Criado um diretório /pi
+      file:
+        path: /tmp/devops_directory
+        state: directory
+        mode: 0777
+      become: yes
