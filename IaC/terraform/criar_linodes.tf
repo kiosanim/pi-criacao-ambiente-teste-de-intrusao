@@ -31,7 +31,7 @@ resource "linode_instance" "centospi" {
     region = var.shared_region
     root_pass = var.shared_root_pass
     private_ip = var.shared_private_ip
-    tags = var.kali_tags
+    tags = var.centos_tags
 }
 
 

@@ -1,5 +1,0 @@
-root
-admin
-fulano
-usuario
-beltrano
