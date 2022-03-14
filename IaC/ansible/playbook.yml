@@ -109,7 +109,7 @@
 
     - name: Criado um diretório /pi
       file:
-        path: /tmp/devops_directory
+        path: /pi
         state: directory
         mode: 0777
       become: yes
