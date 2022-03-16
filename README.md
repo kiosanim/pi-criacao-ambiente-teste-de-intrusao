@@ -260,3 +260,16 @@ ansible-playbook  playbook.yml  --syntax-check
 ```bash
 ansible-playbook -i hosts playbook.yml -u root -k
 ```
+
+---
+
+# Instalação dos metasploit
+
+Abrir um terminal na máquina kali e executar o comando abaixo
+
+```bash
+/home/azureuser/metasploit-latest-linux-x64-installer.run --mode text
+```
+
+# Instalação somente dos utilitários necessários para o exercício
+

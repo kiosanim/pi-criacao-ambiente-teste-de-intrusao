@@ -1,6 +1,7 @@
 # Autor: Fábio Sartori
 # Copyright: 20220311
 
+
 - hosts: kalipi
   become: yes
   tasks:
@@ -54,6 +55,13 @@
         mode: "0777"
       become: yes
 
+    - name: Instalar Utilitários manualmente para o PI
+      apt:
+        name: ["nmap", "gedit", "hydra", "hydra-gtk", "medusa", "ruby-msfrpc-client"]
+        state: latest
+        update_cache: yes
+      become: yes
+
 #===========================================>
 
 - hosts: centospi
@@ -67,7 +75,6 @@
     - name: Criar o usuário azureuser
       user:
         name: azureuser
-        # Password ===> Senacsenac22
         password: "$6$CODYrF27OsC$zCdHTZFuKCO4zQzZl7HbaAHMeRaKZM6R9tPKKasLoE0ttLS5nWBouy2P3BjGMs57t4A1BmBWXVCkE3ulu/ZSb0"
         groups:
           - wheel
